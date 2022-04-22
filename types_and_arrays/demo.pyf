@@ -1,0 +1,39 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module get_value__user__routines 
+    interface get_value_user_interface 
+        function get_python_size(variable_name) result (n) ! in :demo:data_reader.f90:data_reader:get_value:unknown_interface
+            character*(:), allocatable :: variable_name
+            integer :: n
+        end function get_python_size
+        subroutine get_python_value(variable_name,value,n) ! in :demo:data_reader.f90:data_reader:get_value:unknown_interface
+            character*(:), allocatable :: variable_name
+            real, dimension(n) :: value
+            integer :: n
+        end subroutine get_python_value
+    end interface get_value_user_interface
+end python module get_value__user__routines
+python module demo ! in 
+    interface  ! in :demo
+        module data_reader ! in :demo:data_reader.f90
+            use types
+            use my_data
+            subroutine get_data(get_python_size,get_python_value) ! in :demo:data_reader.f90:data_reader
+                use get_value__user__routines
+                external get_python_size
+                external get_python_value
+            end subroutine get_data
+        end module data_reader
+        module demo ! in :demo:demo.f90
+            use types
+            use my_data
+            subroutine main ! in :demo:demo.f90:demo
+            end subroutine main
+        end module demo
+    end interface 
+end python module demo
+
+! This file was auto-generated with f2py (version:1.22.3).
+! See:
+! https://web.archive.org/web/20140822061353/http://cens.ioc.ee/projects/f2py2e

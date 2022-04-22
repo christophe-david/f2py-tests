@@ -1,10 +1,9 @@
 module types
     implicit none
-    private
     public bunch_of_arrays
 
     type :: bunch_of_arrays
-        real :: scalar
+        real :: scalar = 0.0
         real :: fixed_size(5)
         real, allocatable :: variable_size(:)
 
