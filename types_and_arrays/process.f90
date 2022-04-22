@@ -9,7 +9,7 @@ contains
 
     subroutine do_work()
 
-        print *, py_data%scalar + sum(py_data%fixed_size) + sum(py_data%variable_size)
+        print *, py_data%sum_all()
     end subroutine
 
 end module
