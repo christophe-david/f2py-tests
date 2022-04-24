@@ -14,8 +14,8 @@ jobs:
     if: ${{ !contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.head_commit.message, '[skip ci]') }}
     strategy:
       matrix:
-        python-version: [ 3.7, 3.9 ]
-        os: [ macos-latest, ubuntu-latest ]
+        python-version: [ 3.8, 3.9 ]
+        os: [ macos-latest, ubuntu-latest, windows-latest ]
 
     steps:
       - uses: actions/checkout@v2
@@ -38,10 +38,16 @@ jobs:
         run: poetry install
         shell: bash
 
-      - name: Test and run
+      - name: Build and run
         run: |
           cd types_and_arrays
           ./compile.sh
+          ls
+        shell: bash
+
+      - name: Run
+        run: |
+          cd types_and_arrays
           poetry run python main.py
         shell: bash
 
