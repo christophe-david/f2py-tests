@@ -1,5 +1,7 @@
 module my_data
+    ! Module for storing the shared data structure
     use types
     implicit none
-    type(bunch_of_arrays) :: py_data
+
+    type(bunch_of_arrays) :: dummy_structure
 end module

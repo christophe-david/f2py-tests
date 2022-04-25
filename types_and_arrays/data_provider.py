@@ -1,13 +1,25 @@
 from collections import UserDict
+
 import numpy as np
 
 
 class DataProvider(UserDict):
-    def get_size(self, identifier):
-        return np.shape(self[identifier])
+    """
+    Class that will provide data to Fortran code.
 
-    def get_array_value(self, identifier, array: np.ndarray):
-        array[:] = self[identifier][:]
+    Methods `get_size` and `get_array_value` will be called back by Fortran.
+    """
 
-    def get_scalar_value(self, identifier):
-        return self[identifier]
+    def get_size(self, variable_name):
+        """
+        Returns size of specified data.
+
+        Fortran will use it to size its array.
+        """
+        return np.size(self[variable_name])
+
+    def get_array_value(self, variable_name, array: np.ndarray):
+        """
+        Fills `array` with value of specified variable.
+        """
+        array[:] = self[variable_name]
