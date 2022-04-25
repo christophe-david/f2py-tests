@@ -7,5 +7,7 @@ class DataProvider(UserDict):
         return np.shape(self[identifier])
 
     def get_array_value(self, identifier, array: np.ndarray):
-        array[:] = self[identifier]
-        array[0] = 500.0
+        array[:] = self[identifier][:]
+
+    def get_scalar_value(self, identifier):
+        return self[identifier]

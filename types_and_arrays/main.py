@@ -12,6 +12,6 @@ if __name__ == "__main__":
         }
     )
 
-    demo.data_reader.get_python_data(data.get_size, data.get_array_value)
+    demo.data_reader.get_python_data(data.get_size, data.get_array_value, data.get_scalar_value)
     demo.demo.main()
     print("\n*** OK ***")

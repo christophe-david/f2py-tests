@@ -7,11 +7,15 @@ python module get_python_data__user__routines
             character*(:), allocatable :: variable_name
             integer :: n
         end function get_python_size
-        subroutine get_python_value(variable_name,value,n)
+        subroutine get_python_array_value(variable_name,value,n)
             character*(:), allocatable :: variable_name
             real, dimension(n) :: value
             integer :: n
-        end subroutine get_python_value
+        end subroutine get_python_array_value
+        function get_python_scalar_value(variable_name) result(value)
+            character*(:), allocatable :: variable_name
+            real :: value
+        end subroutine get_python_scalar_value
     end interface get_python_data_user_interface
 end python module get_python_data__user__routines
 python module demo ! in 
@@ -19,10 +23,11 @@ python module demo ! in
         module data_reader ! in :demo:data_reader.f90
             use types
             use my_data
-            subroutine get_python_data(get_python_size,get_python_value) ! in :demo:data_reader.f90:data_reader
+            subroutine get_python_data(get_python_size,get_python_array_value,get_python_scalar_value) ! in :demo:data_reader.f90:data_reader
                 use get_python_data__user__routines
                 external get_python_size
-                external get_python_value
+                external get_python_array_value
+                external get_python_scalar_value
             end subroutine get_python_data
         end module data_reader
         module demo ! in :demo:demo.f90

@@ -8,6 +8,9 @@ module demo
 contains
 
     subroutine main()
+        print *, py_data%scalar
+        print *, py_data%fixed_size
+        print *, py_data%variable_size
 
         print *, py_data%sum_all()
     end subroutine
