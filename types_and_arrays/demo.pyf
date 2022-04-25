@@ -25,12 +25,6 @@ python module demo ! in
                 external get_python_value
             end subroutine get_data
         end module data_reader
-        module process ! in :demo:process.f90
-            use types
-            use my_data
-            subroutine do_work ! in :demo:process.f90:process
-            end subroutine do_work
-        end module process
         module demo ! in :demo:demo.f90
             use process
             subroutine main ! in :demo:demo.f90:demo

@@ -4,6 +4,8 @@ module data_reader
 
     implicit none
 
+    private
+    public get_data
 contains
 
     subroutine get_data(get_python_size, get_python_value)
