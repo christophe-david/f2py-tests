@@ -1,5 +1,7 @@
+REM Compilation script for Windows
+
 REM For pre-building pyf file (before modification):
-REM   python -m numpy.f2py -m demo -h demo.pyf types.f90 my_data.f90 data_reader.f90 process.f90 demo.f90
+REM   python -m numpy.f2py -m demo -h demo.pyf data_reader.f90 demo.f90
 
 
 REM A currently unsolved f2py bug makes that produced dll files need to be put in the same

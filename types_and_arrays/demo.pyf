@@ -26,7 +26,8 @@ python module demo ! in
             end subroutine get_data
         end module data_reader
         module demo ! in :demo:demo.f90
-            use process
+            use types
+            use my_data
             subroutine main ! in :demo:demo.f90:demo
             end subroutine main
         end module demo
