@@ -1,29 +1,29 @@
 !    -*- f90 -*-
 ! Note: the context of this file is case sensitive.
 
-python module get_value__user__routines 
-    interface get_value_user_interface 
-        function get_python_size(variable_name) result (n) ! in :demo:data_reader.f90:data_reader:get_value:unknown_interface
+python module get_python_data__user__routines
+    interface get_python_data_user_interface
+        function get_python_size(variable_name) result (n)
             character*(:), allocatable :: variable_name
             integer :: n
         end function get_python_size
-        subroutine get_python_value(variable_name,value,n) ! in :demo:data_reader.f90:data_reader:get_value:unknown_interface
+        subroutine get_python_value(variable_name,value,n)
             character*(:), allocatable :: variable_name
             real, dimension(n) :: value
             integer :: n
         end subroutine get_python_value
-    end interface get_value_user_interface
-end python module get_value__user__routines
+    end interface get_python_data_user_interface
+end python module get_python_data__user__routines
 python module demo ! in 
     interface  ! in :demo
         module data_reader ! in :demo:data_reader.f90
             use types
             use my_data
-            subroutine get_data(get_python_size,get_python_value) ! in :demo:data_reader.f90:data_reader
-                use get_value__user__routines
+            subroutine get_python_data(get_python_size,get_python_value) ! in :demo:data_reader.f90:data_reader
+                use get_python_data__user__routines
                 external get_python_size
                 external get_python_value
-            end subroutine get_data
+            end subroutine get_python_data
         end module data_reader
         module demo ! in :demo:demo.f90
             use types

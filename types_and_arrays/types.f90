@@ -15,7 +15,6 @@ contains
 
     real function sum_all(self) result(res)
         class(bunch_of_arrays), intent(in) :: self
-        integer :: i
 
         res = self%scalar + sum(self%fixed_size) + sum(self%variable_size)
     end function

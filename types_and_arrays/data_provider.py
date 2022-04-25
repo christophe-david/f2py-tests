@@ -6,6 +6,6 @@ class DataProvider(UserDict):
     def get_size(self, identifier):
         return np.shape(self[identifier])
 
-    def get_value(self, identifier, array: np.ndarray):
+    def get_array_value(self, identifier, array: np.ndarray):
         array[:] = self[identifier]
         array[0] = 500.0

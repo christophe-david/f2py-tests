@@ -1,14 +1,17 @@
 module data_reader
+    ! This module demonstrates the exchange of data between Fortran and Python
+    ! Python should call get_python_data so it will store values in the
+    ! py_data object from my_data
     use types
     use my_data
 
     implicit none
 
     private
-    public get_data
+    public get_python_data
 contains
 
-    subroutine get_data(get_python_size, get_python_value)
+    subroutine get_python_data(get_python_size, get_python_value)
         implicit none
         external get_python_size
         external get_python_value
@@ -19,15 +22,16 @@ contains
         variable_name = "data:scalar"
 !        py_data%scalar = get_value(variable_name, get_python_size, get_python_value)
         variable_name = "data:array:fixed_size"
-        py_data%fixed_size = get_value(variable_name, get_python_size, get_python_value)
+        py_data%fixed_size = get_array_value(variable_name, get_python_size, get_python_value)
         variable_name = "data:array:variable_size"
-        py_data%variable_size = get_value(variable_name, get_python_size, get_python_value)
+        py_data%variable_size = get_array_value(variable_name, get_python_size, get_python_value)
 
         print *, py_data%variable_size
     end subroutine
 
 
-    function get_value(variable_name, get_python_size, get_python_value) result(value)
+    function get_array_value(variable_name, get_python_size, get_python_value) result(value)
+        ! Uses provided Python functions to get value of the specified array variable.
         real, allocatable :: value (:)
         character(:), allocatable :: variable_name
         external get_python_size
@@ -42,4 +46,4 @@ contains
 
     end function
 
-end module data_reader
+end module
