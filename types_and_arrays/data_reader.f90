@@ -14,20 +14,29 @@ contains
     subroutine get_python_data(get_python_size, get_python_array_value, get_python_scalar_value)
         ! This function will be called by Python.
         ! It populates the py_data object.
+        interface
+            function get_python_size(variable_name) result (n)
+                character*(:), allocatable, intent(in) :: variable_name
+                integer :: n
+            end function get_python_size
+        end interface
+
         external get_python_size
-        integer :: get_python_size
         external get_python_array_value
         external get_python_scalar_value
         real :: get_python_scalar_value
 
         character(:), allocatable :: variable_name
 
+        procedure (get_python_size), pointer :: f_ptr => null ()
+
+        f_ptr => get_python_size
         variable_name = "data:scalar"
         py_data%scalar = get_scalar_value(variable_name, get_python_scalar_value)
         variable_name = "data:array:fixed_size"
-        py_data%fixed_size = get_array_value(variable_name, get_python_size, get_python_array_value)
+        py_data%fixed_size = get_array_value(variable_name, f_ptr, get_python_array_value)
         variable_name = "data:array:variable_size"
-        py_data%variable_size = get_array_value(variable_name, get_python_size, get_python_array_value)
+        py_data%variable_size = get_array_value(variable_name, f_ptr, get_python_array_value)
     end subroutine
 
 
