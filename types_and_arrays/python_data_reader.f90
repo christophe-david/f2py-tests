@@ -36,6 +36,7 @@ contains
         n = self%get_python_size(variable_name)
         allocate(value(n))
         call self%get_python_array_value(variable_name, value, n)
+        print *, "[FORTRAN][py_data_reader] Received array variable ", variable_name, ":", value
 
     end function
 
@@ -49,6 +50,7 @@ contains
 
         call self%get_python_array_value(variable_name, value_as_array, 1)
         value = value_as_array(1)
-    end function
+        print *, "[FORTRAN][py_data_reader] Received scalar variable ", variable_name, ":", value
+   end function
 
 end module

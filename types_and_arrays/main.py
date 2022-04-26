@@ -15,17 +15,28 @@ if __name__ == "__main__":
     }
 
     # Send data to Fortran
+    print()
+    print("======================= Python --> Fortran ===============================")
     demo.data_bridge.get_python_data(data_bridge.get_size, data_bridge.get_array_value)
-
+    print("==========================================================================")
+    print()
     # If memory is shared, the first element of the fixed size array will be 500.
-    # (Spoiler: it will not)
+    # (Spoiler: currently, it will not)
     data_bridge["data:array:fixed_size"][0] = 500.0
 
     # Do some processing
+    print("======================= Fortran stuff ====================================")
     demo.main.do_stuff()
+    print("==========================================================================")
+    print()
 
     # Gets data to Fortran
+    print("======================= Fortran --> Python ===============================")
     demo.data_bridge.set_python_data(data_bridge.set_array_value)
-    print("-------------------------------------------")
-    print("[PYTHON] returned sum is:", data_bridge.data["data:sum"])
-    print("[PYTHON] computed value is:", data_bridge.data["data:result"])
+    print("==========================================================================")
+    print()
+    print("======================= Python stuff =====================================")
+    print("[PYTHON][main] returned sum is:", data_bridge.data["data:sum"])
+    print("[PYTHON][main] computed value is:", data_bridge.data["data:result"])
+    print("==========================================================================")
+    print("[PYTHON][main] SUCCESSFUL ENDING")

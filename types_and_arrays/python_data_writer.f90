@@ -29,6 +29,7 @@ contains
         integer :: n
 
         n = size(value)
+        print *, "[FORTRAN][py_data_writer] Sending variable", variable_name, ":", value
         call self%set_python_array_value(variable_name, value, n)
     end subroutine
 
