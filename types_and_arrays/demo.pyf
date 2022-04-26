@@ -8,8 +8,8 @@ python module get_python_data__user__routines
             integer :: n
         end function get_python_size
         subroutine get_python_array_value(variable_name,value,n)
-            character*(:), allocatable :: variable_name
-            real, dimension(n) :: value
+            character*(:), allocatable, intent(in) :: variable_name
+            real, dimension(n), depend(n), intent(out) :: value
             integer :: n
         end subroutine get_python_array_value
         subroutine set_python_array_value(variable_name,value,n)

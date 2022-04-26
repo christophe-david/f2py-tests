@@ -1,7 +1,7 @@
 module python_data_writer
-    ! This module is used to send data to Python
+    ! This module is used to send data to Python.
     abstract interface
-        ! Interface of Python function
+        ! Interface of Python function.
         subroutine itf_set_python_array_value(variable_name, value, n)
             character(*), intent(in) :: variable_name
             real, dimension(n), intent(in) :: value
@@ -10,7 +10,7 @@ module python_data_writer
     end interface
 
     type py_data_writer
-        ! Class responsible for sending data to Python
+        ! Class responsible for sending data to Python.
         ! This procedure pointers are expected to point to a Python function/method.
         procedure (itf_set_python_array_value), nopass, pointer :: set_python_array_value => null()
     contains

@@ -1,7 +1,7 @@
 module python_data_reader
-    ! This module is used to get data from Python
+    ! This module is used to get data from Python.
     abstract interface
-        ! Interfaces of Python functions
+        ! Interfaces of Python functions.
         function itf_get_python_size(variable_name) result (n)
             character(*) :: variable_name
             integer :: n
@@ -14,7 +14,7 @@ module python_data_reader
     end interface
 
     type py_data_reader
-        ! Class responsible for getting data from Python
+        ! Class responsible for getting data from Python.
         ! The two procedure pointers are expected to point to Python functions/methods.
         procedure (itf_get_python_size), nopass, pointer :: get_python_size => null()
         procedure (itf_get_python_array_value), nopass, pointer :: get_python_array_value => null()

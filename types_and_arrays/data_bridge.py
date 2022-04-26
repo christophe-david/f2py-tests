@@ -18,16 +18,16 @@ class DataBridge(UserDict):
         """
         return np.size(self[variable_name])
 
-    def get_array_value(self, variable_name, array: np.ndarray):
+    def get_array_value(self, variable_name):
         """
         Fills `array` with value of specified variable.
         """
-        array[:] = self[variable_name]
+        return self[variable_name]
 
     def set_array_value(self, variable_name, array: np.ndarray):
         """
         Gets value of specified variable from `array`.
         """
-        # We have to copy the array because memory of input array may be released as soon as fortran
-        # module gets unused
+        # We have to copy the array because memory of input array may be released as soon
+        # as Fortran module gets unused.
         self[variable_name] = np.array(array)
