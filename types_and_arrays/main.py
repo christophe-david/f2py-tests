@@ -17,6 +17,10 @@ if __name__ == "__main__":
     # Send data to Fortran
     demo.data_bridge.get_python_data(data_bridge.get_size, data_bridge.get_array_value)
 
+    # If memory is shared, the first element of the fixed size array will be 500.
+    # (Spoiler: it will not)
+    data_bridge["data:array:fixed_size"][0] = 500.0
+
     # Do some processing
     demo.main.do_stuff()
 
