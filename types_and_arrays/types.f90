@@ -10,6 +10,8 @@ module types
         real :: fixed_size(5)
         real, allocatable :: variable_size(:)
 
+        real, allocatable :: result(:)
+
     contains
         procedure :: sum_all
     end type

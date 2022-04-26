@@ -12,23 +12,32 @@ python module get_python_data__user__routines
             real, dimension(n) :: value
             integer :: n
         end subroutine get_python_array_value
+        subroutine set_python_array_value(variable_name,value,n)
+            character*(:), allocatable :: variable_name
+            real, dimension(n) :: value
+            integer :: n
+        end subroutine get_python_array_value
     end interface get_python_data_user_interface
 end python module get_python_data__user__routines
-python module demo ! in
-    interface  ! in :demo
-        module data_reader ! in :demo:data_reader.f90
+python module demo
+    interface
+        module data_bridge
             use types
             use my_data
-            subroutine get_python_data(get_python_size,get_python_array_value) ! in :demo:data_reader.f90:data_reader
+            subroutine get_python_data(get_python_size,get_python_array_value)
                 use get_python_data__user__routines
                 external get_python_size
                 external get_python_array_value
             end subroutine get_python_data
-        end module data_reader
-        module main ! in :demo:demo.f90
+            subroutine set_python_data(set_python_array_value)
+                use get_python_data__user__routines
+                external set_python_array_value
+            end subroutine set_python_data
+        end module data_bridge
+        module main
             use types
             use my_data
-            subroutine do_stuff ! in :demo:demo.f90:demo
+            subroutine do_stuff
             end subroutine do_stuff
         end module main
     end interface 

@@ -3,7 +3,7 @@ from collections import UserDict
 import numpy as np
 
 
-class DataProvider(UserDict):
+class DataBridge(UserDict):
     """
     Class that will provide data to Fortran code.
 
@@ -23,3 +23,11 @@ class DataProvider(UserDict):
         Fills `array` with value of specified variable.
         """
         array[:] = self[variable_name]
+
+    def set_array_value(self, variable_name, array: np.ndarray):
+        """
+        Gets value of specified variable from `array`.
+        """
+        # We have to copy the array because memory of input array may be released as soon as fortran
+        # module gets unused
+        self[variable_name] = np.array(array)

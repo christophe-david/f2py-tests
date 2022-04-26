@@ -1,4 +1,4 @@
-module my_data
+module dummy_data
     ! Module for storing the shared data structure
     use types
     implicit none

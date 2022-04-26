@@ -1,25 +1,27 @@
 import demo
 import numpy as np
 
-from data_provider import DataProvider
+from data_bridge import DataBridge
 
 if __name__ == "__main__":
 
     # Definition of data.
     # OpenMDAO inputs/outputs will have a similar structure
-    data_provider = DataProvider()
-    data_provider.data = {
+    data_bridge = DataBridge()
+    data_bridge.data = {
         "data:scalar": 42.0,
         "data:array:fixed_size": np.array([1.0, 2.0, 3.0, 4.0, 5.0]),
         "data:array:variable_size": np.arange(20) * -10.0,
     }
 
     # Send data to Fortran
-    demo.data_reader.get_python_data(
-        data_provider.get_size, data_provider.get_array_value
-    )
+    demo.data_bridge.get_python_data(data_bridge.get_size, data_bridge.get_array_value)
 
     # Do some processing
     demo.main.do_stuff()
 
-    print("\n*** OK ***")
+    # Gets data to Fortran
+    demo.data_bridge.set_python_data(data_bridge.set_array_value)
+    print("-------------------------------------------")
+    print("[PYTHON] returned sum is:", data_bridge.data["data:sum"])
+    print("[PYTHON] computed value is:", data_bridge.data["data:result"])
