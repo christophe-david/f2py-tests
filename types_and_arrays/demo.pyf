@@ -1,0 +1,48 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module get_python_data__user__routines
+    interface get_python_data_user_interface
+        function get_python_size(variable_name) result (n)
+            character*(:), allocatable :: variable_name
+            integer :: n
+        end function get_python_size
+        subroutine get_python_array_value(variable_name,value,n)
+            character*(:), allocatable, intent(in) :: variable_name
+            real, dimension(n), depend(n), intent(out) :: value
+            integer :: n
+        end subroutine get_python_array_value
+        subroutine set_python_array_value(variable_name,value,n)
+            character*(:), allocatable :: variable_name
+            real, dimension(n) :: value
+            integer :: n
+        end subroutine get_python_array_value
+    end interface get_python_data_user_interface
+end python module get_python_data__user__routines
+python module demo
+    interface
+        module data_bridge
+            use types
+            use my_data
+            subroutine get_python_data(get_python_size,get_python_array_value)
+                use get_python_data__user__routines
+                external get_python_size
+                external get_python_array_value
+            end subroutine get_python_data
+            subroutine set_python_data(set_python_array_value)
+                use get_python_data__user__routines
+                external set_python_array_value
+            end subroutine set_python_data
+        end module data_bridge
+        module main
+            use types
+            use my_data
+            subroutine do_stuff
+            end subroutine do_stuff
+        end module main
+    end interface 
+end python module demo
+
+! This file was auto-generated with f2py (version:1.22.3).
+! See:
+! https://web.archive.org/web/20140822061353/http://cens.ioc.ee/projects/f2py2e

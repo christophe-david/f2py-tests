@@ -1,0 +1,60 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
+
+
+jobs:
+  tests:
+    runs-on: ${{ matrix.os }}
+    if: ${{ !contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.head_commit.message, '[skip ci]') }}
+    strategy:
+      matrix:
+         python-version: [ 3.7, 3.8, 3.9 ]
+         os: [ macos-latest, ubuntu-latest, windows-latest ]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Poetry
+        uses: abatilo/actions-poetry@v2.0.0
+        with:
+          poetry-version: 1.1.13
+
+      - name: Install gfortran
+        if: runner.os == 'macOS'
+        run: |
+          brew reinstall gcc  # needed to have gfortran available
+
+      - name: Activate environment and install dependencies
+        run: poetry install
+        shell: bash
+
+      - name: Build for macOS and Linux
+        if: ${{ ! startsWith(runner.os, 'windows') }}
+        run: |
+          cd types_and_arrays
+          poetry run ./compile.sh
+        shell: bash
+
+      - name: Build for Windows
+        if: ${{ startsWith(runner.os, 'windows') }}
+        run: |
+          cd types_and_arrays
+          poetry run compile.bat
+        shell: bash
+
+      - name: Run
+        run: |
+          cd types_and_arrays
+          poetry run python main.py
+        shell: bash
+
