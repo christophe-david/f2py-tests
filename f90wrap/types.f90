@@ -7,6 +7,7 @@ module types
     type :: BunchOfArrays
         ! Dummy class to demonstrate Python data exchange for scalars and arrays.
         real :: scalar
+        real :: fixed_size(5)
     end type
 
 end module
