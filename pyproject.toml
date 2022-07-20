@@ -8,6 +8,7 @@ license = "MIT"
 [tool.poetry.dependencies]
 python = "^3.7"
 numpy = "^1.21"
+f90wrap = {git = "https://github.com/jameskermode/f90wrap"}
 
 [tool.poetry.dev-dependencies]
 black = "22.3.0"
