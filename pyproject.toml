@@ -11,10 +11,10 @@ packages = [
 include = [
     { path = "meson.build", format = "sdist" },
     # C extensions must be included in the wheel distributions
-    { path = "fibonacci/src/bin/*.so", format = "wheel" },
-    { path = "fibonacci/src/bin/*.pyd", format = "wheel" },
-    { path = "fibonacci/src/bin/*.so", format = "wheel" },
-    { path = "fibonacci/src/bin/*.pyd", format = "wheel" },
+    { path = "bin/*.so", format = "wheel" },
+    { path = "bin/*.pyd", format = "wheel" },
+    { path = "bin/*.so", format = "wheel" },
+    { path = "bin/*.pyd", format = "wheel" },
 ]
 
 [tool.poetry.dependencies]
