@@ -20,11 +20,17 @@ incdir_f2py = run_command(py3,
     check : true
 ).stdout().strip()
 
+fibby_source = custom_target('fibbymodule.c',
+                            input : ['../01_quick/fib1.f'], # .f so no F90 wrappers
+                            output : ['fibbymodule.c'],
+                            command : [ py3, '-m', 'numpy.f2py', '@INPUT@',
+                            '-m', 'fibby', '--lower'])
+
 inc_np = include_directories(incdir_numpy, incdir_f2py)
 
-py3.extension_module('fib2',
+py3.extension_module('fibby',
            '../01_quick/fib1.f',
-           'fib2module.c',
+           fibby_source,
            incdir_f2py+'/fortranobject.c',
            include_directories: inc_np,
            dependencies : py3_dep,
